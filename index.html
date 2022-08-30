@@ -66,9 +66,12 @@
     c.height = window.innerHeight * 2;
 
     let s = new Sierpenski(c);
-    document.querySelector('#iterations').addEventListener('input', () => {
+    let render = () => {
       s.render(parseInt(document.querySelector('#iterations').value));
-    });
+    };
+
+    render();
+    document.querySelector('#iterations').addEventListener('input', render);
   </script>
 </body>
 </html>
