@@ -33,6 +33,8 @@ ctx.moveTo(20, 20); // Moves the drawing pencil to (20, 20)
 ctx.lineTo(50, 30); // Draws a line from (20, 20) to (50, 30)
 ctx.lineTo(50, 50); // Draws a line from (50, 30) to (50, 50)
 ctx.endPath(); // Tells canvas to finish drawing the path
+
+ctx.clearRect(0, 0, 50, 50) // Clears the canvas at the point (0, 0) extending 50 wide right and 50 high right down.
 ```
 
 ## Drawing an equilateral triangle
@@ -41,3 +43,61 @@ ctx.endPath(); // Tells canvas to finish drawing the path
 
 To draw an equilateral triangle with with length $L$ around the origin, we first calculate out its three vertices:
 
+$$
+A = (-\frac{L}{2}, \frac{L\sqrt{3}}{4})
+$$
+$$
+B = (0, -\frac{L\sqrt{3}}{4})
+$$
+$$
+C = (\frac{L}{2}, \frac{L\sqrt{3}}{4})
+$$
+
+Translate this into code, and we might have something like…
+
+```js
+let l = 10;
+ctx.beginPath();
+ctx.moveTo(-1 * l / 2, l * Math.sqrt(3) / 4);
+ctx.lineTo(0, -1 * l * Math.sqrt(3) / 4);
+ctx.lineTo(-1 * l / 2, l * Math.sqrt(3) / 4);
+ctx.moveTo(-1 * l / 2, l * Math.sqrt(3) / 4);
+ctx.endPath();
+```
+
+We can further simplify this if we say that all triangle operations are derived from the bottom left corner `A`. Since it is an equilateral triangle, we can derive all other vertices from here!
+
+```js
+let l = 10;
+let ax = -1 * l / 2;
+let ay = l * Math.sqrt(3) / 4;
+
+ctx.beginPath();
+ctx.moveTo(ax, ay);
+ctx.lineTo(ax + l / 2, ay - l * Math.sqrt(3) / 2);
+ctx.lineTo(ax + l, ay);
+ctx.lineTo(ax, ay);
+ctx.endPath();
+```
+
+## Recursion 
+We begin at a certion number of iterations. At each level of recursion, we decrease the level of iteration by 1 until we hit 0. When `i = 0`, this is the stop condition and this is also when we draw the triangle for that subdivision. In pseudocode, we would have the following structure:
+
+```js
+render(iterations) {
+  // Clear canvas
+  // Determine the coordinates for A based on the center of the canvas
+  // Draw the triangles with draw(Ax, Ay, length, iterations) — length is defined in the constructor
+}
+
+draw(x, y, length, iterations) {
+  // If iterations == 0 
+  // Draw the triangle
+  // Else
+  // Draw the bottom left triangle
+  // Draw the top triangle 
+  // Draw the bottom right triangle
+}
+```
+
+At each level of recursion, when `draw()` is called again, we halve the length, and also decrease the iteration count. 
