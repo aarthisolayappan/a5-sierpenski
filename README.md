@@ -81,7 +81,11 @@ ctx.endPath();
 ```
 
 ## Recursion 
-We begin at a certion number of iterations. At each level of recursion, we decrease the level of iteration by 1 until we hit 0. When `i = 0`, this is the stop condition and this is also when we draw the triangle for that subdivision. In pseudocode, we would have the following structure:
+
+<img src="https://user-images.githubusercontent.com/207651/187339352-f480d8c1-8b57-4c76-a1c2-3e8006eae001.png" width="500">
+
+
+We begin at a certion number of iterations. At each level of recursion, we decrease the level of iteration by 1 until we hit 0. When `i = 0`, this is the stop condition and this is also when we draw the triangle for that subdivision. If we don’t hit the stop condition, we recursively call the `draw` function with coordinates for the bottom left corner of the three triangles (bottom left, top, bottom right), halving the lengths and decreasing the iteration level. The above image can help visualize this. In pseudocode, we would have the following structure:
 
 ```js
 render(iterations) {
