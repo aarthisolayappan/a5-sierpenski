@@ -32,7 +32,7 @@ ctx.beginPath(); // Tells canvas to begin drawing the path
 ctx.moveTo(20, 20); // Moves the drawing pencil to (20, 20)
 ctx.lineTo(50, 30); // Draws a line from (20, 20) to (50, 30)
 ctx.lineTo(50, 50); // Draws a line from (50, 30) to (50, 50)
-ctx.endPath(); // Tells canvas to finish drawing the path
+ctx.closePath(); // Tells canvas to finish drawing the path
 
 ctx.clearRect(0, 0, 50, 50) // Clears the canvas at the point (0, 0) extending 50 wide right and 50 high right down.
 ```
@@ -62,7 +62,7 @@ ctx.moveTo(-1 * l / 2, l * Math.sqrt(3) / 4);
 ctx.lineTo(0, -1 * l * Math.sqrt(3) / 4);
 ctx.lineTo(-1 * l / 2, l * Math.sqrt(3) / 4);
 ctx.moveTo(-1 * l / 2, l * Math.sqrt(3) / 4);
-ctx.endPath();
+ctx.closePath();
 ```
 
 We can further simplify this if we say that all triangle operations are derived from the bottom left corner `A`. Since it is an equilateral triangle, we can derive all other vertices from here!
@@ -77,7 +77,7 @@ ctx.moveTo(ax, ay);
 ctx.lineTo(ax + l / 2, ay - l * Math.sqrt(3) / 2);
 ctx.lineTo(ax + l, ay);
 ctx.lineTo(ax, ay);
-ctx.endPath();
+ctx.closePath();
 ```
 
 ## Recursion 
